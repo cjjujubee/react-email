@@ -41,7 +41,7 @@ var INBOX = {
     }
 };
 
-var Main = function(props) {
+var GoodEmail = function(props) {
     return (
         <div>
             <b>
@@ -51,7 +51,7 @@ var Main = function(props) {
     )
 };
 
-var Spam = function(props){
+var SpamEmail = function(props){
     return (
         <div>
             <b>
@@ -63,11 +63,11 @@ var Spam = function(props){
 
 var MainInbox = function(props){
     console.log(props);
-    var emails = Object.keys(props.inbox).map(function(emailId, index){
+    var emails = Object.keys(props.emails).map(function(emailId, index){
         var email = props.emails[emailId];
         return (
             <li key={index}>
-                <Email id={email.id} from={email.from} to={email.to} title={email.title} content={email.content} />
+                <GoodEmail id={email.id} from={email.from} to={email.to} title={email.title} content={email.content} />
             </li>
             )
     });
@@ -78,12 +78,13 @@ var MainInbox = function(props){
     );
 };
 
-var SpamInbox = function(props){
-    var spams = Object.keys(props.spam).map(function(spamId, index){
+var SpamInbox = function(props) {
+    console.log('spamz', props);
+    var spams = Object.keys(props.spams).map(function(spamId, index) {
         var spam = props.spams[spamId];
         return (
             <li key={index}>
-                <Spam id={spam.id} from={spam.from} to={spam.to} title={spam.title} content={spam.content} />
+              <SpamEmail id={email.id} from={email.from} to={email.to} title={email.title} content={email.content} />
             </li>
             )
     });
@@ -95,19 +96,11 @@ var SpamInbox = function(props){
 };
 
 var InboxContainer = function(){
-    return <MainInbox emails={INBOX.inbox} />;
+    return (
+      // <MainInbox emails={INBOX.inbox} />
+      <SpamInbox emails={INBOX.spam} />
+    );
 };
-
-// var InboxContainer = function(props){
-//     console.log(props);
-//     return (
-//         <div><Inbox /></div>
-//     )
-// }
-//
-// var Inbox = function() {
-//     return <div><p>"Hello"</p></div>
-// }
 
 var routes = (
     <Router history={hashHistory}>
