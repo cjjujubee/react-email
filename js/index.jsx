@@ -5,6 +5,7 @@ var Router = router.Router;
 var Route = router.Route;
 var hashHistory = router.hashHistory;
 var IndexRoute = router.IndexRoute;
+var Link = router.Link;
 
 var INBOX = {
     inbox: {
@@ -45,7 +46,7 @@ var GoodEmail = function(props) {
     return (
         <div>
             <b>
-                {props.title}
+                {props.title} · From: {props.from}
             </b>
         </div>
     )
@@ -55,7 +56,7 @@ var SpamEmail = function(props){
     return (
         <div>
             <b>
-                {props.title}
+                {props.title} · From: {props.from}
             </b>
         </div>
     )
@@ -99,6 +100,13 @@ var InboxContainer = function(){
     return (
       <div>
         <MainInbox emails={INBOX.inbox} />
+      </div>
+    );
+};
+
+var SpamContainer = function(){
+    return (
+      <div>
         <SpamInbox spams={INBOX.spam} />
       </div>
     );
@@ -110,6 +118,10 @@ var App = function(props) {
             <h1>
                 Inbox App
             </h1>
+            <nav>
+                <li><Link to="/spam">Go to your spamz</Link></li>
+                <li><Link to="/inbox">Go to your real email</Link></li>
+            </nav>
             <div>
                 {props.children}
             </div>
@@ -121,6 +133,9 @@ var routes = (
     <Router history={hashHistory}>
         <Route path="/inbox" component={App}>
           <IndexRoute component={InboxContainer} />
+        </Route>
+        <Route path="/spam" component={App}>
+          <IndexRoute component={SpamContainer} />
         </Route>
     </Router>
 );
