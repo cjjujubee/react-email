@@ -96,18 +96,12 @@ var SpamInbox = function(props) {
     );
 };
 
-var InboxContainer = function(){
+var InboxContainer = function(props) {
+    var folder = props.params.folder;
+    console.log(folder);
     return (
       <div>
-        <MainInbox emails={INBOX.inbox} />
-      </div>
-    );
-};
-
-var SpamContainer = function(){
-    return (
-      <div>
-        <SpamInbox spams={INBOX.spam} />
+        <MainInbox emails={INBOX[folder]} />
       </div>
     );
 };
@@ -133,13 +127,9 @@ var routes = (
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={InboxContainer} />
-            <Route path="inbox" component={InboxContainer}>
+            <Route path=":folder" component={InboxContainer}>
                  <Route path="email/:id" />
             </Route>
-            <Route component={SpamContainer}>
-                <Route path="spam/:id" />
-            </Route>
-            <Route path="spam" component={SpamContainer} />
         </Route>
     </Router>
 );
