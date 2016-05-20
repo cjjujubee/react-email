@@ -8,7 +8,8 @@ var IndexRoute = router.IndexRoute;
 
 var routes = (
     <Router history={hashHistory}>
-        <Route path="/" component={InboxContainer} />
+        <Route path="/inbox" component={InboxContainer} />
+        <Route path="/sky" component={Sky} />
     </Router>
 );
 
@@ -47,6 +48,12 @@ var INBOX = {
     }
 };
 
+var Sky = function(props) {
+    return (
+        <div className="sky"><p>This is a representation of the sky</p></div>
+    );
+};
+
 var Main = function(props) {
     return (
         <div>
@@ -68,6 +75,7 @@ var Spam = function(props){
 };
 
 var MainInbox = function(props){
+    console.log(props);
     var emails = Object.keys(props.inbox).map(function(emailId, index){
         var email = props.emails[emailId];
         return (
@@ -83,6 +91,26 @@ var MainInbox = function(props){
     );
 };
 
+var SpamInbox = function(props){
+    var spams = Object.keys(props.spam).map(function(spamId, index){
+        var spam = props.spams[spamId];
+        return (
+            <li key={index}>
+                <Spam id={spam.id} from={spam.from} to={spam.to} title={spam.title} content={spam.content} />
+            </li>
+            )
+    });
+    return (
+        <ul>
+            {spams}
+        </ul>
+    );
+};
+
+var InboxContainer = function(){
+    return <MainInbox emails={INBOX.inbox} />;
+};
+
 // var InboxContainer = function(props){
 //     console.log(props);
 //     return (
@@ -95,5 +123,5 @@ var MainInbox = function(props){
 // }
 
 document.addEventListener('DOMContentLoaded', function(){
-    ReactDOM.render(routes, document.querySelector('#app'));
+    ReactDOM.render(routes, document.getElementById('app'));
 });
