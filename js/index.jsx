@@ -41,12 +41,6 @@ var INBOX = {
     }
 };
 
-var Sky = function(props) {
-    return (
-        <div className="sky"><p>This is a representation of the sky</p></div>
-    );
-};
-
 var Main = function(props) {
     return (
         <div>
@@ -118,7 +112,6 @@ var InboxContainer = function(){
 var routes = (
     <Router history={hashHistory}>
         <Route path="/inbox" component={InboxContainer} />
-        <Route path="/sky" component={Sky} />
     </Router>
 );
 
