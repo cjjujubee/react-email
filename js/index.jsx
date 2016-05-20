@@ -6,13 +6,6 @@ var Route = router.Route;
 var hashHistory = router.hashHistory;
 var IndexRoute = router.IndexRoute;
 
-var routes = (
-    <Router history={hashHistory}>
-        <Route path="/inbox" component={InboxContainer} />
-        <Route path="/sky" component={Sky} />
-    </Router>
-);
-
 var INBOX = {
     inbox: {
         0: {
@@ -71,7 +64,7 @@ var Spam = function(props){
                 {props.title}
             </b>
         </div>
-    )  
+    )
 };
 
 var MainInbox = function(props){
@@ -121,6 +114,13 @@ var InboxContainer = function(){
 // var Inbox = function() {
 //     return <div><p>"Hello"</p></div>
 // }
+
+var routes = (
+    <Router history={hashHistory}>
+        <Route path="/inbox" component={InboxContainer} />
+        <Route path="/sky" component={Sky} />
+    </Router>
+);
 
 document.addEventListener('DOMContentLoaded', function(){
     ReactDOM.render(routes, document.getElementById('app'));
