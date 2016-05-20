@@ -131,12 +131,15 @@ var App = function(props) {
 
 var routes = (
     <Router history={hashHistory}>
-        <Route path="/inbox" component={App}>
-            <Route path="/:id" component={Email}></Route>
-          <IndexRoute component={InboxContainer} />
-        </Route>
-        <Route path="/spam" component={App}>
-          <IndexRoute component={SpamContainer} />
+        <Route path="/" component={App}>
+            <IndexRoute component={InboxContainer} />
+            <Route path="inbox" component={InboxContainer}>
+                 <Route path="email/:id" />
+            </Route>
+            <Route component={SpamContainer}>
+                <Route path="spam/:id" />
+            </Route>
+            <Route path="spam" component={SpamContainer} />
         </Route>
     </Router>
 );
