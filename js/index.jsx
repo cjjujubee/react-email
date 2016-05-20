@@ -84,7 +84,7 @@ var SpamInbox = function(props) {
         var spam = props.spams[spamId];
         return (
             <li key={index}>
-              <SpamEmail id={email.id} from={email.from} to={email.to} title={email.title} content={email.content} />
+              <SpamEmail id={spam.id} from={spam.from} to={spam.to} title={spam.title} content={spam.content} />
             </li>
             )
     });
@@ -97,14 +97,31 @@ var SpamInbox = function(props) {
 
 var InboxContainer = function(){
     return (
-      // <MainInbox emails={INBOX.inbox} />
-      <SpamInbox emails={INBOX.spam} />
+      <div>
+        <MainInbox emails={INBOX.inbox} />
+        <SpamInbox spams={INBOX.spam} />
+      </div>
+    );
+};
+
+var App = function(props) {
+    return (
+        <div>
+            <h1>
+                Inbox App
+            </h1>
+            <div>
+                {props.children}
+            </div>
+        </div>
     );
 };
 
 var routes = (
     <Router history={hashHistory}>
-        <Route path="/inbox" component={InboxContainer} />
+        <Route path="/inbox" component={App}>
+          <IndexRoute component={InboxContainer} />
+        </Route>
     </Router>
 );
 
