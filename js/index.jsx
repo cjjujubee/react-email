@@ -25,15 +25,15 @@ var INBOX = {
         }
     },
     spam: {
-        0: {
-            id: 0,
+        2: {
+            id: 2,
             from: "ChEaPFl1ghTZ@hotmail.com",
             to: "TeamWoz@Woz.org",
             title: "WaNt CHEEp FlitZ",
             content: "Theyre CheEp"
         },
-        1: {
-            id: 1,
+        3: {
+            id: 3,
             from: "NiKEAIRJordanZ@hotmail.com",
             to: "TeamWoz@Woz.org",
             title: "JorDanz For SAle",
@@ -43,13 +43,16 @@ var INBOX = {
 };
 
 var EmailView = function(props) {
-    console.log('hi', props);
+    var email = INBOX.inbox[props.params.emailId] || INBOX.spam[props.params.emailId];
+    console.log(email);
     return (
         <section>
-            <div>{props.to}</div>
-            <div>{props.from}</div>
-            <div>{props.title}</div>
-            <div>{props.content}</div>
+            <div>To: {email.to}</div>
+            <div>From: {email.from}</div>
+            <div>Subject: {email.title}</div>
+            <div>
+              <p>{email.content}</p>
+            </div>
         </section>
     );
 };
@@ -71,14 +74,13 @@ var EmailHeader = function(props) {
 };
 
 var MainInbox = function(props){
-    console.log(props);
     var emails = Object.keys(props.emails).map(function(emailId, index){
         var email = props.emails[emailId];
         return (
             <li key={index}>
                 <EmailHeader id={email.id} from={email.from} to={email.to} title={email.title} content={email.content} />
             </li>
-            )
+        );
     });
     return (
         <ul>
@@ -89,7 +91,6 @@ var MainInbox = function(props){
 
 var InboxContainer = function(props) {
     var folder = props.params.folder;
-    console.log(folder);
     return (
       <div>
         <MainInbox emails={INBOX[folder]} />
@@ -119,9 +120,7 @@ var routes = (
         <Route path="/" component={App}>
             <IndexRoute component={InboxContainer} />
             <Route path=":folder" component={InboxContainer} />
-            <Route path=":folder" component={MainInbox}>
-              <Route path="/email/:id" component={EmailView} />
-            </Route>
+            <Route path="email/:emailId" component={EmailView} />
         </Route>
     </Router>
 );
